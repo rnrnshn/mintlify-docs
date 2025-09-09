@@ -1,79 +1,312 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "A.I Agents"
+description: "Bem-vindo ao guia definitivo para configurar um ambiente local para criar e usar agentes de IA com Ollama e LangChain no Windows e MacOS!"
 ---
 
-## Get started in three steps
+Este tutorial passo a passo vai te guiar para montar um setup robusto, perfeito para rodar modelos de linguagem localmente e construir pipelines **RAG (Retrieval-Augmented Generation)** com **SingleStore** ou **ChromaDB**. Tudo isso com privacidade total e sem custos de API\! 
 
-Get your documentation site running locally and make your first customization.
+# **🚀 Guia de Configuração: AI Agents com Ollama e LangChain 🧠**
 
-### Step 1: Set up your local environment
+## **Objetivo**
 
-<AccordionGroup>
-  <Accordion title="Clone your docs locally" icon="copy">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+**Configurar um ambiente funcional para desenvolver e testar agentes de IA localmente, com suporte para modelos de linguagem (LLMs) e armazenamento vetorial.   Ideal para iniciantes e experts\! 🌟**
 
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion title="Start the preview server" icon="rectangle-terminal">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live\!
+---
 
-    <Tip>
-      Your preview updates automatically as you edit files.
-    </Tip>
-  </Accordion>
-</AccordionGroup>
+## **📋 Pré-requisitos**
 
-### Step 2: Deploy your changes
+**Sistema Operacional**
 
-<AccordionGroup>
-  <Accordion title="Install our GitHub app" icon="github">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+- **Windows 11/10 ou MacOS (Ventura ou posterior recomendado). 🖥️**
 
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-  </Accordion>
-  <Accordion title="Update your site name and colors" icon="palette">
-    For a first change, let's update the name and colors of your docs site.
+**Hardware**
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+- **Mínimo: 8 GB de RAM**
+- **Recomendado: 16 GB de RAM**
+- **Espaço livre: 10 GB 💾**
 
-    <Tip>
-      Try changing the primary color to see an immediate difference\!
-    </Tip>
-  </Accordion>
-</AccordionGroup>
+**Software**
 
-### Step 3: Go live
+- **Python 3.9\+ instalado.**
+- **Docker Desktop instalado e em execução (para SingleStore, se desejar). 🐳**
+- **Terminal: PowerShell (Windows) ou Terminal (MacOS). 🖱️**
+- **Conexão à internet para baixar modelos e dependências (após configuração, tudo roda offline\!). 🌐**
 
-<Accordion title="Publish your docs" icon="rocket">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments\!
-</Accordion>
+---
 
-## Next steps
+## **🛠️ Passo a Passo**
 
-Now that you have your docs running, explore these key features:
+### **Passo 1: Instalar o Ollama 🌍**
 
-<CardGroup cols={2}>
-  <Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-    Learn MDX syntax and start writing your documentation.
-  </Card>
-  <Card title="Customize style" icon="palette" href="/essentials/settings">
-    Make your docs match your brand perfectly.
-  </Card>
-  <Card title="Add code examples" icon="square-code" href="/essentials/code">
-    Include syntax-highlighted code blocks.
-  </Card>
-  <Card title="API documentation" icon="code" href="/api-reference/introduction">
-    Auto-generate API docs from OpenAPI specs.
-  </Card>
-</CardGroup>
+**O Ollama permite rodar modelos de linguagem localmente com facilidade.**
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+#### **Download e Instalação**
+
+**MacOS**
+
+```
+curl -fsSL https://ollama.ai/install.sh | sh
+​
+```
+
+**Ou baixe o instalador em **[**ollama.com**](http://ollama.com)** e siga as instruções.**
+
+**Verificar instalação**
+
+```
+ollama --version
+```
+
+**Deve retornar 0.1.x ou superior**
+
+**Baixar Modelos**
+
+```
+ollama serve
+ollama pull llama3.2
+ollama pull mxbai-embed-large
+ollama list
+​
+```
+
+### **Passo 2: Configurar o Ambiente Python 🐍**
+
+**Um ambiente virtual mantém tudo organizado e isolado.**
+
+**Verificar Python**
+
+**MacOS**
+
+```
+python3 --version
+```
+
+**Se não instalado:**
+
+```
+brew install python
+```
+
+**Windows**
+
+```
+python --version
+```
+
+**Se não instalado, baixe de **[**python.org**](http://python.org)**.**
+
+**Criar diretório do projeto mkdir ai-agent-project cd ai-agent-project**
+
+**Criar e ativar ambiente virtual**
+
+**MacOS**
+
+**python3 -m venv venv source venv/bin/activate**
+
+**Windows**
+
+```
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+**Instalar dependências**
+
+```
+pip install langchain langchain-ollama langchain-singlestore pandas
+```
+
+**Opcional (usando Poetry)**
+
+```
+pip install poetry
+poetry new ai_tutorial
+cd ai_tutorial
+poetry add langchain langchain-ollama langchain-singlestore pandas
+```
+
+### **Passo 3: Configurar o SingleStore (Opcional para RAG) 🗄️**
+
+**Instalar Docker**
+
+**MacOS**
+
+```
+brew install --cask docker
+```
+
+**Windows Baixe em **[**docker.com**](http://docker.com)**.**
+
+**Inicie o Docker Desktop 🐳**
+
+**O script no Passo 4 já inicializa o SingleStore automaticamente.**
+
+### **Passo 4: Criar o Agente de IA 🤖**
+
+**Criar arquivo de dados (opcional)**
+
+```
+pizza_reviews.csv
+```
+
+**Title,Date,Rating,Review "Best Pizza in Town\!","2025-01-06",1,"The crust was perfectly crispy and the toppings were fresh." "Delicious and Affordable","2024-08-12",1,"A bit overpriced, but overall a decent meal."**
+
+**Criar script Python**
+
+```
+main.py
+```
+
+```
+import pandas as pd
+from singlestoredb.server import docker
+from langchain_ollama import OllamaLLM, OllamaEmbeddings
+from langchain_singlestore import SingleStoreVectorStore
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.documents import Document
+​
+def setup_database(s2db):
+    """Inicializa o banco de dados SingleStore."""
+    with s2db.connect() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute("CREATE DATABASE IF NOT EXISTS testdb")
+​
+def load_documents():
+    """Carrega revisões de pizzas do CSV."""
+    df = pd.read_csv("pizza_reviews.csv")
+    documents = []
+    for i, row in df.iterrows():
+        content = f"{row['Title']} {row['Review']}"
+        documents.append(
+            Document(
+                page_content=content,
+                metadata={"rating": row["Rating"], "date": row["Date"]},
+                id=str(i)
+            )
+        )
+    return documents
+​
+def main():
+    print("🚀 Iniciando SingleStoreDB para armazenamento vetorial...")
+    with docker.start(license="") as s2db:
+        setup_database(s2db)
+        print("📂 Carregando e criando embeddings das revisões de pizzas...")
+        documents = load_documents()
+        embedding = OllamaEmbeddings(model="mxbai-embed-large")
+        vector_store = SingleStoreVectorStore(
+            embedding=embedding,
+            host=s2db.connection_url,
+            database="testdb",
+            table_name="pizza_reviews",
+        )
+        vector_store.add_documents(documents)
+        retriever = vector_store.as_retriever(search_kwargs={"k": 2})
+        print("🧠 Inicializando modelo LLaMA 3.2...")
+        model = OllamaLLM(model="llama3.2")
+        template = """
+        Você é um especialista em responder perguntas sobre um restaurante de pizzas. 🍕
+        Revisões relevantes: {reviews}
+        Pergunta: {question}
+        """
+        prompt = ChatPromptTemplate.from_template(template)
+        chain = prompt | model
+        print("\n--- Sistema de Perguntas e Respostas sobre Revisões de Pizzas ---")
+        while True:
+            user_input = input("\nDigite sua pergunta sobre pizzas (ou 'exit' para sair): ")
+            if user_input.lower() == "exit":
+                break
+            print("\n🔍 Buscando revisões relevantes e gerando resposta...")
+            reviews = retriever.invoke(user_input)
+            result = chain.invoke({"reviews": reviews, "question": user_input})
+            print("\n--- Resposta ---")
+            print(result)
+​
+if __name__ == "__main__":
+    main()
+​
+```
+
+**Executar**
+
+**Certifique-se de que o Ollama está rodando:**
+
+```
+ollama serve
+```
+
+**Depois:**
+
+```
+python main.py
+```
+
+**Ou com Poetry:**
+
+```
+poetry run python main.py
+```
+
+### **Passo 5: Testar e Personalizar 🎨**
+
+**Testar exemplo**
+
+**Digite: O que as pessoas acham da crosta da pizza? 🍕**
+
+**Personalizar**
+
+**Trocar modelo (llama3.2 → mistral, qwen2:7b etc.).**
+
+**Adicionar mais dados ao pizza_reviews.csv.**
+
+**Integrar ferramentas externas (acesso web, arquivos, etc.).**
+
+### **Passo 6: Solução de Problemas 🛠️**
+
+**Ollama não conecta**
+
+```
+ollama serve
+sudo lsof -i :11434 # Mac
+netstat -aon | findstr :11434 # Windows
+```
+
+**Modelo não encontrado**
+
+```
+ollama list
+ollama pull <modelo>
+```
+
+**Erro de módulo Python**
+
+```
+pip install -U langchain langchain-ollama langchain-singlestore pandas
+```
+
+#### **Passo 7: Próximos Passos 🚀**
+
+**Adicionar interface web com Streamlit**
+
+**Testar com ChromaDB**
+
+**Implementar multi-agentes**
+
+**Adicionar memória de conversação**
+
+#### **📝 Notas Finais**
+
+**100% Local: Privacidade garantida, sem APIs externas. 🔒**
+
+**📚 Recursos Úteis Documentação Ollama**
+
+**LangChain Docs**
+
+**SingleStore Tutorials**
+
+**Documentação do Ollama**
+
+**Documentação do LangChain**
+
+**Tutoriais da SingleStore**
+
+**Agora você está pronto para construir agentes de IA incríveis\! 🎉**
