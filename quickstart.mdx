@@ -5,7 +5,7 @@ description: "Bem-vindo ao guia definitivo para configurar um ambiente local par
 
 Este tutorial passo a passo vai te guiar para montar um setup robusto, perfeito para rodar modelos de linguagem localmente e construir pipelines **RAG (Retrieval-Augmented Generation)** com **SingleStore** ou **ChromaDB**. Tudo isso com privacidade total e sem custos de API\!
 
-## Guia de Configuração: AI Agents com Ollama e LangChain 
+## Guia de Configuração: AI Agents com Ollama e LangChain
 
 ### **Objetivo**
 
@@ -32,7 +32,7 @@ Configurar um ambiente funcional para desenvolver e testar agentes de IA localme
 
 ## **Passo a Passo**
 
-### **Passo 1: Instalar o Ollama **
+### Passo 1: Instalar o Ollama
 
 O Ollama permite rodar modelos de linguagem localmente com facilidade.
 
@@ -63,7 +63,7 @@ ollama pull mxbai-embed-large
 ollama list
 ```
 
-### **Passo 2: Configurar o Ambiente Python **
+### Passo 2: Configurar o Ambiente Python 
 
 Um ambiente virtual mantém tudo organizado e isolado.
 
@@ -121,7 +121,7 @@ cd ai_tutorial
 poetry add langchain langchain-ollama langchain-singlestore pandas
 ```
 
-### **Passo 3: Configurar o SingleStore (Opcional para RAG) 🗄️**
+### Passo 3: Configurar o SingleStore (Opcional para RAG)
 
 **Instalar Docker**
 
@@ -133,11 +133,11 @@ brew install --cask docker
 
 [******Windows Baixe em docker.com.******](http://docker.com)
 
-Inicie o Docker Desktop 
+Inicie o Docker Desktop
 
 **O script no Passo 4 já inicializa o SingleStore automaticamente.**
 
-### **Passo 4: Criar o Agente de IA 🤖**
+### **Passo 4: Criar o Agente de IA **
 
 Criar arquivo de dados (opcional)
 
@@ -242,7 +242,7 @@ python main.py
 poetry run python main.py
 ```
 
-### **Passo 5: Testar e Personalizar 🎨**
+### Passo 5: Testar e Personalizar
 
 Testar exemplo
 
@@ -256,7 +256,7 @@ Adicionar mais dados ao pizza_reviews.csv.
 
 Integrar ferramentas externas (acesso web, arquivos, etc.).
 
-### **Passo 6: Solução de Problemas 🛠️**
+### Passo 6: Solução de Problemas
 
 **Ollama não conecta**
 
@@ -279,7 +279,7 @@ ollama pull <modelo>
 pip install -U langchain langchain-ollama langchain-singlestore pandas
 ```
 
-#### **Passo 7: Próximos Passos 🚀**
+### Passo 7: Próximos Passos
 
 Adicionar interface web com Streamlit
 
@@ -289,9 +289,9 @@ Implementar multi-agentes
 
 Adicionar memória de conversação
 
-#### **📝 Notas Finais**
+### Notas Finais
 
-100% Local: Privacidade garantida, sem APIs externas. 🔒
+100% Local: Privacidade garantida, sem APIs externas. 
 
 <Card title="Recursos Úteis Documentação Ollama" icon="link">
   LangChain Docs
