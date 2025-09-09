@@ -3,57 +3,52 @@ title: "A.I Agents"
 description: "Bem-vindo ao guia definitivo para configurar um ambiente local para criar e usar agentes de IA com Ollama e LangChain no Windows e MacOS!"
 ---
 
-Este tutorial passo a passo vai te guiar para montar um setup robusto, perfeito para rodar modelos de linguagem localmente e construir pipelines **RAG (Retrieval-Augmented Generation)** com **SingleStore** ou **ChromaDB**. Tudo isso com privacidade total e sem custos de API\! 
+Este tutorial passo a passo vai te guiar para montar um setup robusto, perfeito para rodar modelos de linguagem localmente e construir pipelines **RAG (Retrieval-Augmented Generation)** com **SingleStore** ou **ChromaDB**. Tudo isso com privacidade total e sem custos de API\!
 
-# **🚀 Guia de Configuração: AI Agents com Ollama e LangChain 🧠**
+## Guia de Configuração: AI Agents com Ollama e LangChain 
 
-## **Objetivo**
+### **Objetivo**
 
-**Configurar um ambiente funcional para desenvolver e testar agentes de IA localmente, com suporte para modelos de linguagem (LLMs) e armazenamento vetorial.   Ideal para iniciantes e experts\! 🌟**
+Configurar um ambiente funcional para desenvolver e testar agentes de IA localmente, com suporte para modelos de linguagem (LLMs) e armazenamento vetorial.   Ideal para iniciantes e experts\!
 
----
-
-## **📋 Pré-requisitos**
+### Pré-requisitos
 
 **Sistema Operacional**
 
-- **Windows 11/10 ou MacOS (Ventura ou posterior recomendado). 🖥️**
+- Windows 11/10 ou MacOS (Ventura ou posterior recomendado).
 
 **Hardware**
 
-- **Mínimo: 8 GB de RAM**
-- **Recomendado: 16 GB de RAM**
-- **Espaço livre: 10 GB 💾**
+- Mínimo: 8 GB de RAM
+- Recomendado: 16 GB de RAM
+- Espaço livre: 10 GB
 
 **Software**
 
-- **Python 3.9\+ instalado.**
-- **Docker Desktop instalado e em execução (para SingleStore, se desejar). 🐳**
-- **Terminal: PowerShell (Windows) ou Terminal (MacOS). 🖱️**
-- **Conexão à internet para baixar modelos e dependências (após configuração, tudo roda offline\!). 🌐**
+- Python 3.9\+ instalado.
+- Docker Desktop instalado e em execução (para SingleStore, se desejar).
+- Terminal: PowerShell (Windows) ou Terminal (MacOS).
+- Conexão à internet para baixar modelos e dependências (após configuração, tudo roda offline\!).
 
----
+## **Passo a Passo**
 
-## **🛠️ Passo a Passo**
+### **Passo 1: Instalar o Ollama **
 
-### **Passo 1: Instalar o Ollama 🌍**
+O Ollama permite rodar modelos de linguagem localmente com facilidade.
 
-**O Ollama permite rodar modelos de linguagem localmente com facilidade.**
-
-#### **Download e Instalação**
+**Download e Instalação**
 
 **MacOS**
 
-```
+```shellscript
 curl -fsSL https://ollama.ai/install.sh | sh
-​
 ```
 
-**Ou baixe o instalador em **[**ollama.com**](http://ollama.com)** e siga as instruções.**
+[******Ou baixe o instalador em ollama.com e siga as instruções.******](http://ollama.com)
 
 **Verificar instalação**
 
-```
+```shellscript
 ollama --version
 ```
 
@@ -61,29 +56,28 @@ ollama --version
 
 **Baixar Modelos**
 
-```
+```shellscript
 ollama serve
 ollama pull llama3.2
 ollama pull mxbai-embed-large
 ollama list
-​
 ```
 
-### **Passo 2: Configurar o Ambiente Python 🐍**
+### **Passo 2: Configurar o Ambiente Python **
 
-**Um ambiente virtual mantém tudo organizado e isolado.**
+Um ambiente virtual mantém tudo organizado e isolado.
 
 **Verificar Python**
 
 **MacOS**
 
-```
+```shellscript
 python3 --version
 ```
 
 **Se não instalado:**
 
-```
+```shellscript
 brew install python
 ```
 
@@ -93,32 +87,34 @@ brew install python
 python --version
 ```
 
-**Se não instalado, baixe de **[**python.org**](http://python.org)**.**
+[******Se não instalado, baixe de python.org.******](http://python.org)
 
-**Criar diretório do projeto mkdir ai-agent-project cd ai-agent-project**
+Criar diretório do projeto mkdir ai-agent-project cd ai-agent-project
 
-**Criar e ativar ambiente virtual**
+Criar e ativar ambiente virtual
 
 **MacOS**
 
-**python3 -m venv venv source venv/bin/activate**
+```shellscript
+python3 -m venv venv source venv/bin/activate
+```
 
 **Windows**
 
-```
+```shellscript
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
 **Instalar dependências**
 
-```
+```shellscript
 pip install langchain langchain-ollama langchain-singlestore pandas
 ```
 
 **Opcional (usando Poetry)**
 
-```
+```shellscript
 pip install poetry
 poetry new ai_tutorial
 cd ai_tutorial
@@ -131,21 +127,21 @@ poetry add langchain langchain-ollama langchain-singlestore pandas
 
 **MacOS**
 
-```
+```shellscript
 brew install --cask docker
 ```
 
-**Windows Baixe em **[**docker.com**](http://docker.com)**.**
+[******Windows Baixe em docker.com.******](http://docker.com)
 
-**Inicie o Docker Desktop 🐳**
+Inicie o Docker Desktop 
 
 **O script no Passo 4 já inicializa o SingleStore automaticamente.**
 
 ### **Passo 4: Criar o Agente de IA 🤖**
 
-**Criar arquivo de dados (opcional)**
+Criar arquivo de dados (opcional)
 
-```
+```shellscript
 pizza_reviews.csv
 ```
 
@@ -153,11 +149,11 @@ pizza_reviews.csv
 
 **Criar script Python**
 
-```
+```shellscript
 main.py
 ```
 
-```
+```python
 import pandas as pd
 from singlestoredb.server import docker
 from langchain_ollama import OllamaLLM, OllamaEmbeddings
@@ -230,41 +226,41 @@ if __name__ == "__main__":
 
 **Certifique-se de que o Ollama está rodando:**
 
-```
+```shellscript
 ollama serve
 ```
 
 **Depois:**
 
-```
+```shellscript
 python main.py
 ```
 
 **Ou com Poetry:**
 
-```
+```shellscript
 poetry run python main.py
 ```
 
 ### **Passo 5: Testar e Personalizar 🎨**
 
-**Testar exemplo**
+Testar exemplo
 
-**Digite: O que as pessoas acham da crosta da pizza? 🍕**
+Digite: **O que as pessoas acham da crosta da pizza?**
 
-**Personalizar**
+Personalizar
 
-**Trocar modelo (llama3.2 → mistral, qwen2:7b etc.).**
+Trocar modelo (llama3.2 → mistral, qwen2:7b etc.).
 
-**Adicionar mais dados ao pizza_reviews.csv.**
+Adicionar mais dados ao pizza_reviews.csv.
 
-**Integrar ferramentas externas (acesso web, arquivos, etc.).**
+Integrar ferramentas externas (acesso web, arquivos, etc.).
 
 ### **Passo 6: Solução de Problemas 🛠️**
 
 **Ollama não conecta**
 
-```
+```shellscript
 ollama serve
 sudo lsof -i :11434 # Mac
 netstat -aon | findstr :11434 # Windows
@@ -272,41 +268,41 @@ netstat -aon | findstr :11434 # Windows
 
 **Modelo não encontrado**
 
-```
+```shellscript
 ollama list
 ollama pull <modelo>
 ```
 
 **Erro de módulo Python**
 
-```
+```shellscript
 pip install -U langchain langchain-ollama langchain-singlestore pandas
 ```
 
 #### **Passo 7: Próximos Passos 🚀**
 
-**Adicionar interface web com Streamlit**
+Adicionar interface web com Streamlit
 
-**Testar com ChromaDB**
+Testar com ChromaDB
 
-**Implementar multi-agentes**
+Implementar multi-agentes
 
-**Adicionar memória de conversação**
+Adicionar memória de conversação
 
 #### **📝 Notas Finais**
 
-**100% Local: Privacidade garantida, sem APIs externas. 🔒**
+100% Local: Privacidade garantida, sem APIs externas. 🔒
 
-**📚 Recursos Úteis Documentação Ollama**
+<Card title="Recursos Úteis Documentação Ollama" icon="link">
+  LangChain Docs
 
-**LangChain Docs**
+  SingleStore Tutorials
 
-**SingleStore Tutorials**
+  Documentação do Ollama
 
-**Documentação do Ollama**
+  Documentação do LangChain
 
-**Documentação do LangChain**
+  Tutoriais da SingleStore
 
-**Tutoriais da SingleStore**
-
-**Agora você está pronto para construir agentes de IA incríveis\! 🎉**
+  Agora você está pronto para construir agentes de IA incríveis\! 🎉
+</Card>
